@@ -1,0 +1,92 @@
+
+
+\section[FAQs]{FAQs}
+\label{sec:faqs}
+\addcontentsline{toc}{section}{\thesection. FAQs}
+
+
+\subsection[General]{General}
+\label{sec:general}
+\addcontentsline{toc}{subsection}{\thesubsection. General}
+
+\begin{enumerate}
+\item {\bf\color{blue} Q:}
+      Does \pkg{pbdRPC} support Windows system? \\
+      {\bf\color{blue} A:}
+      Yes, the \code{plink.exe} from PuTTY will be the program to send
+      commands to remote servers. An internal built \code{plink.exe} will
+      be provided and wrapped by the \pkg{pbdRPC} command \code{plink()}.
+
+\item {\bf\color{blue} Q:}
+      Is an authentication used in \pkg{pbdRPC}? How does it work? \\
+      {\bf\color{blue} A:}
+      Yes, the authentication is the same way to \code{ssh} and
+      \code{plink.exe} provided public and private keys are setup correctly.
+      For example, when an RSA key is used, the \code{ssh} will by
+      default search
+      \code{~/.ssh/id_rsa} or via the option ``\code{-i ./id_rsa}'' for a local
+      private key.
+      Similarly,
+      the \code{plink.exe} uses the option ``\code{-i ./id_rsa.ppk}'' for a
+      local private key.
+      Inside \pkg{pbdRPC}, one can use the options of the control
+      \code{.pbd_env$RPC.LI$priv.key} and \code{.pbd_env$RPC.LI$pri.key.ppk} to
+      indicate the file of the private key. Then, \code{ssh()}, \code{plink()},
+      and \code{rpc()} commands will automatically access those files,
+      accordingly.
+
+\item {\bf\color{blue} Q:}
+      Can a \code{ssh} private key be converted to \code{plink}'s private
+      key? i.e. convert OpenSSH format to PuTTY format. \\
+      {\bf\color{blue} A:}
+      Yes, the \code{puttygen} on linux can convert the \code{id_rsa}
+      (OpenSSH format) to \code{id_rsa.ppk} (PuTTY format) as in next.
+\begin{Command}
+$ sudo apt-get install putty
+$ puttygen id_rsa -O private -o id_rsa.ppk
+\end{Command}
+
+\item {\bf\color{blue} Q:}
+      Is it possible to capture the returns from the RPC calls
+      by \code{rpc()}, \code{ssh()}, or \code{plink()}? How? \\
+      {\bf\color{blue} A:}
+      Yes, set the arguments \code{intern = TRUE} and \code{wait = TRUE}
+      to the RPC calls can obtain the outputs as used by \code{system()}.
+      The \code{plink()} used in \code{RGui} may not be able to capture
+      the outputs unless the authentication is set because \code{shell.exec()}
+      is used instead of \code{system()}.
+
+\item {\bf\color{blue} Q:}
+      Does \code{rpc()} support \code{SSH} (reverse/remote) tunneling or
+      port forwarding? \\
+      {\bf\color{blue} A:}
+      Yes, theoretically there is no problem. However, there is no
+      appropriate example to show that in \proglang{R}.
+      See Sections~\ref{sec:arguments_local_port_forwarding}
+      and \ref{sec:arguments_tunneling} for the command arguments.
+
+\item {\bf\color{blue} Q:}
+      Error messages from an \proglang{R} session or a shell/terminal
+      are shown as below.
+\begin{Error}
+FATAL ERROR: Network error: Connection refused
+\end{Error}
+      or
+\begin{Error}
+ssh: connect to host 192.168.56.101 port 22: Connection refused
+\end{Error}
+      {\bf\color{blue} A:}
+      The messages are mainly because of incorrect setups of SSH service.
+      Check SSH service on remote servers.
+      \begin{itemize}
+      \item Install SSH server, such as in next.
+\begin{Command}
+$ sudo apt-get install openssh-server
+\end{Command}
+      \item Check network, port, SSH service, and firewall configurations.
+      \item Turn on connection permissions for SSH ports.
+      \item Make sure password or authentication are correct.
+      \end{itemize} 
+
+\end{enumerate}
+

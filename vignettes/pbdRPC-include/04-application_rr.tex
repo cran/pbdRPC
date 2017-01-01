@@ -1,0 +1,103 @@
+
+\section[An Application with \pkg{remoter}]{An Application with \pkg{remoter}}
+\label{sec:application_rr}
+\addcontentsline{toc}{section}{\thesection. An Application with \pkg{remoter}}
+
+The \pkg{remoter}~\citep{remoter} and \pkg{pbdZMQ}~\citep{Chen2015pbdZMQpackage}
+provide client/server interface to control a remote \proglang{R}
+(e.g. running on a single server, Xubuntu, ip=192.168.56.101)
+from a local \proglang{R} (e.g. running on a single laptop, Windows 8).
+Combining with \pkg{pbdMPI}~\citep{Chen2012pbdMPIpackage} and
+\pkg{pbdCS}~\citep{pbdCS}, one may extent the
+remote \proglang{R} to the \proglang{R} clusters by running
+\proglang{R}'s in a distributed/SPMD environment.
+\begin{itemize}
+\item See \citet{xsede16} for an introduction of \pkg{remoter} and \pkg{pbdCS}.
+\item See \url{http://github.com/snoweye/user2016.demo}
+      for a demo of both packages.
+\item See pbdR-Tech (\url{http://snoweye.github.io/pbdr/}) and
+      HPSC (\url{http://snoweye.github.io/hpsc/}) websites
+      for more applications of SPMD and
+      how to utilize \proglang{R} in clusters~\citep{hpsc2012}.
+\end{itemize}
+
+In a simplified scenario such as the setting in
+Section~\ref{sec:handling_login_information}, one may use the following
+commands to ``start'', ``check'', and ``kill'' a remote \proglang{R} server
+under a shell environment provided \code{Rscript} is in \code{PATH}
+of the login server (pre-load or set by the \code{00_set_devel_R}).
+\begin{Command}[title=\pkg{remoter} server at 192.168.56.101]
+$ source ~/work-my/00_set_devel_R
+$ nohup Rscript -e 'remoter::server()' > .rrlog 2>&1 < /dev/null &
+$ ps ax|grep '[r]emoter::server'
+$ kill -9 $(ps ax|grep '[r]emoter::server'|awk '{print $1}')
+\end{Command}
+
+In an well established server, one can use \code{ssh} or \code{plink.exe}
+to send those commands from a local laptop.
+Furthermore, one may also use \pkg{pbdRPC} directly within an \proglang{R}
+environment to send those commands. The example is in next.
+\begin{Code}[title=Using \pkg{pbdRPC} to control \pkg{remoter}]
+> library(pbdRPC, quietly = TRUE)
+>
+> ### Alter login information as needed
+> rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+> .pbd_env$RPC.CT$use.shell.exec <- FALSE
+>
+> preload <- "source ~/work-my/00_set_devel_R; "
+> start_rr(preload = preload)
+character(0)
+>
+> library(remoter)
+Loading required package: pbdZMQ
+
+Attaching package: 'remoter'
+
+The following object is masked from 'package:grDevices':
+
+    dev.off
+
+The following objects are masked from 'package:utils':
+
+    ?, help
+
+> client(addr = "192.168.56.101")
+WARNING: server not secure; communications are not encrypted.
+
+remoter> 1+1
+[1] 2 
+remoter> q()
+>
+> check_rr()
+[1] " 2014 ?        Sl     0:00 /home/snoweye/work-my/local/R-devel/lib64/R/bin/exec/R --slave --no-restore -e remoter::server()"
+> kill_rr()
+character(0)
+\end{Code}
+where \code{client()} is for connect to the remote \proglang{R} server
+started by \code{start_rr()}.
+Note that all commands in the above example were typed inside a
+local \proglang{R} in the local laptop. However, the computation
+\code{1+1} was done by a remote \proglang{R} on the server (192.168.56.101).
+
+The \code{start_rr()}, \code{check_rr()}, and \code{kill_rr()} are
+all wrapper functions of \code{rpc()} to submit different commands stored in
+\code{.pbd_env$RPC.RR$start}, \code{.pbd_env$RPC.RR$check}, and
+\code{.pbd_env$RPC.RR$kill}, respectively.
+The tedious details of \code{RPC.RR} are in next which all can be
+simply sent by \code{rpc()} to execute on the server.
+\begin{Code}[title=\code{RPC.RR} for controlling \pkg{remoter}]
+> .pbd_env$RPC.RR
+$check
+[1] "ps ax|grep '[r]emoter::server'"
+
+$kill
+[1] "kill -9 $(ps ax|grep '[r]emoter::server'|awk '{print $1}')"
+
+$start
+[1] "nohup Rscript -e 'remoter::server()' > .rrlog 2>&1 < /dev/null &"
+
+$preload
+[1] "source ~/work-my/00_set_devel_R; "
+
+\end{Code}
+
