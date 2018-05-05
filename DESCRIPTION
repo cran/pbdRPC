@@ -1,6 +1,6 @@
 Package: pbdRPC
-Version: 0.2-0
-Date: 2018-02-01
+Version: 0.2-1
+Date: 2018-04-30
 Title: Programming with Big Data -- Remote Procedure Call
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("Drew", "Schmidt", role="aut"))
@@ -15,14 +15,14 @@ SystemRequirements: ssh (OpenSSH) or plink (PuTTY) on Solaris, Linux,
         and Mac.
 License: Mozilla Public License 2.0
 URL: http://r-pbd.org/
-BugReports: http://group.r-pbd.org/
+BugReports: https://github.com/snoweye/pbdRPC/issues
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 RoxygenNote: 6.0.1
 NeedsCompilation: yes
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
-Packaged: 2018-02-02 03:28:47 UTC; snoweye
+Packaged: 2018-05-05 04:42:41 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   Drew Schmidt [aut]
 Repository: CRAN
-Date/Publication: 2018-02-02 04:31:59 UTC
+Date/Publication: 2018-05-05 17:53:30 UTC

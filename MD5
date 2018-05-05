@@ -1,6 +1,6 @@
 e879eaad64aab8e1f8e63e298f5cea28 *COPYING
-a95ca5156fe2dfbca006c2b02c3fcabd *ChangeLog
-ad10231ff11a4cb6e659bc3c16c31af0 *DESCRIPTION
+adb46b3804eeb943fdb0775b335d098d *ChangeLog
+d7bd9d66d99f66a59ca4f06668664072 *DESCRIPTION
 917bcc435542c03b59fc19354bdf5bd3 *INSTALL
 43439a39119d7485d59c911add768921 *NAMESPACE
 e65685d28ecc6253c081d6a595d882f0 *R/000_globalVariables.r
@@ -29,7 +29,7 @@ a36bc4d0884bf18bc52c9630827422e2 *TODO
 d41d8cd98f00b204e9800998ecf8427e *configure.win
 28afe2e9a4f5bd49ca3b32c369e07561 *inst/CITATION
 ee2c408834dba6c886f250fb99abb07f *inst/doc/pbdRPC-guide.Rnw
-e2e0b11a187b670ad9e0c4bde96f203d *inst/doc/pbdRPC-guide.pdf
+102cae338354764f213d38b2dc7c3c8a *inst/doc/pbdRPC-guide.pdf
 2329ae5b05ed1609032197d1a33bd125 *inst/putty_LICENCE
 63b617019e9a8103a0592136d59e79df *man/a0_b_control.Rd
 8a58d95ee3fd92c4c5570110190280ff *man/a0_c_options.Rd
@@ -165,7 +165,7 @@ c1a74fae14d263e5be91281d8162cdc8 *vignettes/pbdRPC-include/02-introduction.tex
 b937d782f3cce20a8da4e0569dddefad *vignettes/pbdRPC-include/03-login_information.tex
 c0e85eb791aae39a6bf0e1e422bc7acb *vignettes/pbdRPC-include/04-application_rr.tex
 561b6e0073db03dcb0ad9239a7e85ebb *vignettes/pbdRPC-include/05-application_cs.tex
-f0d2b8fb80f4ac15ae30878495694e47 *vignettes/pbdRPC-include/06-port_forwarding.tex
+a639a0a39af6f7237f064f9f880e0ffd *vignettes/pbdRPC-include/06-port_forwarding.tex
 501351c2d9e6952c91c9ff287c3e2fbf *vignettes/pbdRPC-include/07-advance_pbdmpi.tex
 3522280e40223c2ff1a1fd4f72eed54f *vignettes/pbdRPC-include/08-machine_information.tex
 c574e41367298fb09112540036696a27 *vignettes/pbdRPC-include/99-faq.tex
